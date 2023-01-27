@@ -9,8 +9,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
 
-import javax.swing.plaf.basic.BasicBorders.MarginBorder;
-
 import com.ctre.phoenix.led.CANdle;
 import com.ctre.phoenix.led.RainbowAnimation;
 
@@ -51,13 +49,19 @@ public class LEDCOMM extends SubsystemBase {
 
   public void turnOnLEDS(){
     if (cubeDetection()){
+
       mCaNdle.clearAnimation(0);
       mCaNdle.setLEDs(94, 12, 166);
+
     } else if (coneDetection()){
+
       mCaNdle.clearAnimation(0);
       mCaNdle.setLEDs(252, 229, 28);
+
     } else {
-      mCaNdle.animate(mRainbowAnimation);
+      
+      mCaNdle.clearAnimation(0);
+      //mCaNdle.animate(mRainbowAnimation);
     }
 
   }
