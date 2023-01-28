@@ -46,7 +46,7 @@ public class IntakeStateMachine extends SubsystemBase {
 
     switch(state){
       case COLLECT:
-        spinIntake(0.8);
+      spinIntake(0.8);
 
         if (!ProximitySensor.get()){
           state = States.SENSOR_RETURN;
@@ -119,7 +119,7 @@ public class IntakeStateMachine extends SubsystemBase {
 
   public void idleToCollect(){
 
-    if (state == States.IDLE){
+    if (state == States.IDLE && storedGamePiece == GamePiece.NOTHING){
       state = States.COLLECT;
     } 
 
