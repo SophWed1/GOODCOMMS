@@ -46,12 +46,27 @@ public class IntakeStateMachine extends SubsystemBase {
         if (!ProximitySensor.get()){
           state = States.SENSOR_RETURN;
         }
+        break;
 
-        break;
       case IDLE:
+        stopIntake();
+        stopOuttake();
         break;
+
       case REJECT:
+        //(I = on reverse if already stored; I = on && O = on if nothing is stored)
+        if (storedGamePiece != GamePiece.NOTHING){
+          spinIntake(-0.8);
+        } else {//if we have nothing
+          spinIntake(0.8);
+          spinOuttake(0.8);
+        }
+
+        if (ProximitySensor.get()){
+          state = States.COLLECT;
+        }
         break;
+
       case SENSOR_RETURN:
         if (ColourSensor.get()){
           storedGamePiece = GamePiece.CONE;
@@ -65,11 +80,12 @@ public class IntakeStateMachine extends SubsystemBase {
           state = States.REJECT;
         }
         break;
+        
       case STORE:
         stopIntake();
         spinOuttake(0.2);
         
-        if (ProximitySensor.get() && ColourSensor.get()){//once the intake sees that there are no more than 1 gamepiece stored 
+        if (ProximitySensor.get()){//once the intake sees that there are no more than 1 gamepiece stored 
           state = States.IDLE;
         }
         break;
@@ -95,6 +111,20 @@ public class IntakeStateMachine extends SubsystemBase {
 
   GamePiece storedGamePiece = GamePiece.NOTHING;
   public static GamePiece targetGamePiece = GamePiece.NOTHING;
+
+  public void idleToCollect(){
+
+    if (state == States.IDLE){
+      state = States.COLLECT;
+    } 
+
+  }
+
+  public void cancelToIdle(){
+    if (state != States.STORE){
+      state = States.IDLE;
+    }
+  }
 
   public void spinIntake(double speed){
     IntakeLeft.set(TalonFXControlMode.PercentOutput, speed);
