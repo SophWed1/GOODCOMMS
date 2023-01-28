@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.LEDCOMM;
+import frc.robot.subsystems.PrototypeTesting;
 import frc.robot.subsystems.IntakeStateMachine.GamePiece;
 
 /**
@@ -27,6 +28,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   //LEDCOMM mLedcomm = new LEDCOMM();
   IntakeStateMachine mStateMachine = new IntakeStateMachine();
+  PrototypeTesting mPrototypeTesting = new PrototypeTesting();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -57,15 +59,26 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    
+    /*
+      m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+      m_driverController.a().onTrue(new RunCommand(() -> mStateMachine.idleToCollect(), mStateMachine));
+      m_driverController.x().onTrue(new RunCommand(() -> mStateMachine.cancelToIdle(), mStateMachine));
 
-    m_driverController.a().onTrue(new RunCommand(() -> mStateMachine.idleToCollect(), mStateMachine));
-    m_driverController.x().onTrue(new RunCommand(() -> mStateMachine.cancelToIdle(), mStateMachine));
-
-    m_driverController.leftBumper().onTrue(new RunCommand(() -> mStateMachine.updateTargetGamepiece(GamePiece.CONE), mStateMachine));
-    m_driverController.rightBumper().onTrue(new RunCommand(()-> mStateMachine.updateTargetGamepiece(GamePiece.CUBE), mStateMachine));
-
+      m_driverController.leftBumper().onTrue(new RunCommand(() -> mStateMachine.updateTargetGamepiece(GamePiece.CONE), mStateMachine));
+      m_driverController.rightBumper().onTrue(new RunCommand(()-> mStateMachine.updateTargetGamepiece(GamePiece.CUBE), mStateMachine));
+     */
+    
     //mLedcomm.setDefaultCommand(new RunCommand(() -> mLedcomm.turnOnLEDS(), mLedcomm));
+
+    m_driverController.a().onTrue(new RunCommand(() -> mPrototypeTesting.spinIntake(0.5), mPrototypeTesting));//TODO: change speed where necessary
+    m_driverController.a().onFalse(new RunCommand(() -> mPrototypeTesting.stopIntake(), mPrototypeTesting));
+
+    m_driverController.b().onTrue(new RunCommand(() -> mPrototypeTesting.spinFeeder(0.5), mPrototypeTesting));//TODO: change speed where necessary
+    m_driverController.b().onFalse(new RunCommand(() -> mPrototypeTesting.stopFeeder(), mPrototypeTesting));
+
+    m_driverController.x().onTrue(new RunCommand(() -> mPrototypeTesting.moveFlipper(0.5), mPrototypeTesting));//TODO: change speed where necessary
+    m_driverController.x().onFalse(new RunCommand(() -> mPrototypeTesting.stopFlipper(), mPrototypeTesting));
 
   }
 
