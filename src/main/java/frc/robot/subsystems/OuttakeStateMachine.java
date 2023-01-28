@@ -5,6 +5,8 @@
 package frc.robot.subsystems;//TODO the outtake will use: 2x NEO 550 motors with a REV ultraplanetary gear ratio of 30:1; 1x pneumatic 
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.SparkMaxPIDController;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 
 public class OuttakeStateMachine extends SubsystemBase {
   /** Creates a new OuttakeStateMachine. */
