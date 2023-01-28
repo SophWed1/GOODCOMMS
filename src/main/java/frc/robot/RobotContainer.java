@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.LEDCOMM;
+import frc.robot.subsystems.IntakeStateMachine.GamePiece;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -24,7 +25,7 @@ import frc.robot.subsystems.LEDCOMM;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  LEDCOMM mLedcomm = new LEDCOMM();
+  //LEDCOMM mLedcomm = new LEDCOMM();
   IntakeStateMachine mStateMachine = new IntakeStateMachine();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -61,7 +62,10 @@ public class RobotContainer {
     m_driverController.a().onTrue(new RunCommand(() -> mStateMachine.idleToCollect(), mStateMachine));
     m_driverController.x().onTrue(new RunCommand(() -> mStateMachine.cancelToIdle(), mStateMachine));
 
-    mLedcomm.setDefaultCommand(new RunCommand(() -> mLedcomm.turnOnLEDS(), mLedcomm));
+    m_driverController.leftBumper().onTrue(new RunCommand(() -> mStateMachine.updateTargetGamepiece(GamePiece.CONE), mStateMachine));
+    m_driverController.rightBumper().onTrue(new RunCommand(()-> mStateMachine.updateTargetGamepiece(GamePiece.CUBE), mStateMachine));
+
+    //mLedcomm.setDefaultCommand(new RunCommand(() -> mLedcomm.turnOnLEDS(), mLedcomm));
 
   }
 

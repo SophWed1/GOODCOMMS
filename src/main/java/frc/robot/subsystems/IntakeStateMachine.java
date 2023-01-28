@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class IntakeStateMachine extends SubsystemBase {
   TalonFX IntakeLeft;
@@ -24,20 +25,24 @@ public class IntakeStateMachine extends SubsystemBase {
   /** Creates a new IntakeStateMachine. */
   public IntakeStateMachine() {
 
+    /* 
     IntakeLeft = new TalonFX(0);
     IntakeRight = new TalonFX(1);
 
     OuttakeLeft = new TalonFX(2);
     OuttakeRight = new TalonFX(3);
+    */
 
     ProximitySensor = new DigitalInput(0);
     ColourSensor = new DigitalOutput(1);
-
+    
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    SmartDashboard.putString("State: ", state.toString());
 
     switch(state){
       case COLLECT:
@@ -80,7 +85,7 @@ public class IntakeStateMachine extends SubsystemBase {
           state = States.REJECT;
         }
         break;
-        
+
       case STORE:
         stopIntake();
         spinOuttake(0.2);
@@ -110,7 +115,7 @@ public class IntakeStateMachine extends SubsystemBase {
   States state = States.IDLE;
 
   GamePiece storedGamePiece = GamePiece.NOTHING;
-  public static GamePiece targetGamePiece = GamePiece.NOTHING;
+  GamePiece targetGamePiece = GamePiece.NOTHING;
 
   public void idleToCollect(){
 
@@ -126,24 +131,30 @@ public class IntakeStateMachine extends SubsystemBase {
     }
   }
 
+  public void updateTargetGamepiece(GamePiece targetGamePiece){
+    this.targetGamePiece = targetGamePiece;
+    SmartDashboard.putString("Target game piece: ", targetGamePiece.toString());
+  }
+
+
   public void spinIntake(double speed){
-    IntakeLeft.set(TalonFXControlMode.PercentOutput, speed);
-    IntakeRight.set(TalonFXControlMode.PercentOutput, speed);
+    //IntakeLeft.set(TalonFXControlMode.PercentOutput, speed);
+    //IntakeRight.set(TalonFXControlMode.PercentOutput, speed);
   }
 
   public void stopIntake(){
-    IntakeLeft.set(TalonFXControlMode.PercentOutput, 0);
-    IntakeRight.set(TalonFXControlMode.PercentOutput, 0);
+    //IntakeLeft.set(TalonFXControlMode.PercentOutput, 0);
+    //IntakeRight.set(TalonFXControlMode.PercentOutput, 0);
   }
 
   public void spinOuttake(double speed){
-    OuttakeLeft.set(TalonFXControlMode.PercentOutput, speed);
-    OuttakeRight.set(TalonFXControlMode.PercentOutput, speed);
+    //OuttakeLeft.set(TalonFXControlMode.PercentOutput, speed);
+    //OuttakeRight.set(TalonFXControlMode.PercentOutput, speed);
   }
 
   public void stopOuttake(){
-    OuttakeLeft.set(TalonFXControlMode.PercentOutput, 0);
-    OuttakeRight.set(TalonFXControlMode.PercentOutput, 0);
+    //OuttakeLeft.set(TalonFXControlMode.PercentOutput, 0);
+    //OuttakeRight.set(TalonFXControlMode.PercentOutput, 0);
   }
 
 }
