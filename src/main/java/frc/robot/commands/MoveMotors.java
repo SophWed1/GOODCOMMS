@@ -5,12 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import frc.robot.subsystems.LEDCOMM;
 
-public class LEDCOMMAND extends CommandBase {
+public class MoveMotors extends CommandBase {
   LEDCOMM mLedcomm = new LEDCOMM();
-  /** Creates a new LEDCOMMAND. */
-  public LEDCOMMAND(LEDCOMM ledcomm) {
+
+  /** Creates a new MoveMotors. */
+  public MoveMotors(LEDCOMM ledcomm) {
     // Use addRequirements() here to declare subsystem dependencies.
     mLedcomm = ledcomm;
     addRequirements(mLedcomm);
@@ -23,7 +25,7 @@ public class LEDCOMMAND extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    
   }
 
   // Called once the command ends or is interrupted.
