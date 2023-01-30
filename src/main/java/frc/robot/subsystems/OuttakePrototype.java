@@ -16,11 +16,11 @@ public class OuttakePrototype extends SubsystemBase {
 
   /** Creates a new OuttakePrototype. */
   public OuttakePrototype() {
-    outtake1 = new CANSparkMax(0, MotorType.kBrushless);//TODO: adjust where necessary
+    outtake1 = new CANSparkMax(5, MotorType.kBrushless);//TODO: adjust where necessary
     outtake1.setInverted(false);
     outtake1.setIdleMode(IdleMode.kBrake);
 
-    outtake2 = new CANSparkMax(0, MotorType.kBrushless);
+    outtake2 = new CANSparkMax(6, MotorType.kBrushless);
     outtake2.setInverted(true);
     outtake1.setIdleMode(IdleMode.kBrake);
   }

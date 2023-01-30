@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -11,12 +12,18 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 public class ArmPrototype extends SubsystemBase {
+  //constants
+   double gearRatio = 161.62;
+   double countsPerRev = 2048;
+
+   double countsPerTurn = gearRatio * countsPerRev;
+
   TalonFX arm;//TODO: change where necessary
   
   /** Creates a new ArmPrototype. */
   public ArmPrototype() {
-    arm = new TalonFX(0);
-    arm.setNeutralMode(NeutralMode.Brake);
+    arm = new TalonFX(2);
+    arm.setNeutralMode(NeutralMode.Coast);
   }
 
   @Override
@@ -24,8 +31,28 @@ public class ArmPrototype extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void moveArm(double speed){
-    arm.set(TalonFXControlMode.PercentOutput, speed);
+  public void showPosition(){
+    SmartDashboard.putNumber("Arm position: ", arm.getSelectedSensorPosition()/10000);
+
   }
+
+  public void moveToPosition(double position, double speed){
+    arm.set(TalonFXControlMode.Position, position * 10000);
+    arm.set(TalonFXControlMode.PercentOutput, speed);
+
+    if (arm.getSelectedSensorPosition() > 8.050 * 10000){
+      stopArm();
+    }
+  }
+
+  public void stopArm(){
+    arm.set(TalonFXControlMode.PercentOutput, 0);
+  }
+
+  /*
+   * Arm positions:
+   * Down to the ground: -0.424
+   * Up (parallel with the ground): 8.050 
+   */
 
 }

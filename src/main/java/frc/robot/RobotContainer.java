@@ -10,6 +10,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeStateMachine;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -32,7 +33,7 @@ public class RobotContainer {
   //IntakeStateMachine mStateMachine = new IntakeStateMachine();
   //PrototypeTesting mPrototypeTesting = new PrototypeTesting();
 
-  OuttakePrototype mOuttakePrototype = new OuttakePrototype();
+  //OuttakePrototype mOuttakePrototype = new OuttakePrototype();
   ArmPrototype mArmPrototype = new ArmPrototype();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -87,14 +88,17 @@ public class RobotContainer {
     m_driverController.x().onFalse(new RunCommand(() -> mPrototypeTesting.stopFlipper(), mPrototypeTesting));
      */
 
-    m_driverController.a().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.2), mOuttakePrototype));
-    m_driverController.b().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.4), mOuttakePrototype));
-    m_driverController.x().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.6), mOuttakePrototype));
-    m_driverController.y().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.8), mOuttakePrototype));
+    //m_driverController.a().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.2), mOuttakePrototype));
+    //m_driverController.b().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.4), mOuttakePrototype));
+    //m_driverController.x().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.6), mOuttakePrototype));
+    //m_driverController.y().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.8), mOuttakePrototype));
 
-    m_driverController.rightBumper().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(1), mOuttakePrototype));
+    //m_driverController.rightBumper().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(1), mOuttakePrototype));
 
-    m_driverController.leftBumper().onTrue(new RunCommand(() -> mArmPrototype.moveArm(0.4), mArmPrototype));
+    mArmPrototype.setDefaultCommand(new RunCommand(() -> mArmPrototype.showPosition(), mArmPrototype));
+
+    m_driverController.a().onTrue(new RunCommand(() -> mArmPrototype.moveToPosition(-0.160, 0.3), mArmPrototype));
+    m_driverController.b().onTrue(new RunCommand(() -> mArmPrototype.moveToPosition(7.050, 0.3), mArmPrototype));
 
   }
 
