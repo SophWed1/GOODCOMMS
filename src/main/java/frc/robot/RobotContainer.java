@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.LEDCOMM;
 import frc.robot.subsystems.PrototypeTesting;
+import frc.robot.subsystems.OuttakePrototype;
 import frc.robot.subsystems.IntakeStateMachine.GamePiece;
 
 /**
@@ -26,9 +27,11 @@ import frc.robot.subsystems.IntakeStateMachine.GamePiece;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  //LEDCOMM mLedcomm = new LEDCOMM();
-  IntakeStateMachine mStateMachine = new IntakeStateMachine();
-  PrototypeTesting mPrototypeTesting = new PrototypeTesting();
+  //LEDCOMM mLedcomm = new LEDCOMM();//TODO uncomment these when necessary
+  //IntakeStateMachine mStateMachine = new IntakeStateMachine();
+  //PrototypeTesting mPrototypeTesting = new PrototypeTesting();
+
+  OuttakePrototype mOuttakePrototype = new OuttakePrototype();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -71,7 +74,8 @@ public class RobotContainer {
     
     //mLedcomm.setDefaultCommand(new RunCommand(() -> mLedcomm.turnOnLEDS(), mLedcomm));
 
-    m_driverController.a().onTrue(new RunCommand(() -> mPrototypeTesting.spinIntake(0.5), mPrototypeTesting));//TODO: change speed where necessary
+    /*
+     m_driverController.a().onTrue(new RunCommand(() -> mPrototypeTesting.spinIntake(0.5), mPrototypeTesting));//TODO: change speed where necessary
     m_driverController.a().onFalse(new RunCommand(() -> mPrototypeTesting.stopIntake(), mPrototypeTesting));
 
     m_driverController.b().onTrue(new RunCommand(() -> mPrototypeTesting.spinFeeder(0.5), mPrototypeTesting));//TODO: change speed where necessary
@@ -79,6 +83,15 @@ public class RobotContainer {
 
     m_driverController.x().onTrue(new RunCommand(() -> mPrototypeTesting.moveFlipper(0.5), mPrototypeTesting));//TODO: change speed where necessary
     m_driverController.x().onFalse(new RunCommand(() -> mPrototypeTesting.stopFlipper(), mPrototypeTesting));
+     */
+
+    m_driverController.a().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.2), mOuttakePrototype));
+    m_driverController.b().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.4), mOuttakePrototype));
+    m_driverController.x().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.6), mOuttakePrototype));
+    m_driverController.y().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.8), mOuttakePrototype));
+
+    m_driverController.rightBumper().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(1), mOuttakePrototype));
+
 
   }
 
