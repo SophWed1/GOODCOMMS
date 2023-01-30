@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.LEDCOMM;
 import frc.robot.subsystems.PrototypeTesting;
 import frc.robot.subsystems.OuttakePrototype;
+import frc.robot.subsystems.ArmPrototype;
 import frc.robot.subsystems.IntakeStateMachine.GamePiece;
 
 /**
@@ -32,6 +33,7 @@ public class RobotContainer {
   //PrototypeTesting mPrototypeTesting = new PrototypeTesting();
 
   OuttakePrototype mOuttakePrototype = new OuttakePrototype();
+  ArmPrototype mArmPrototype = new ArmPrototype();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -92,6 +94,7 @@ public class RobotContainer {
 
     m_driverController.rightBumper().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(1), mOuttakePrototype));
 
+    m_driverController.leftBumper().onTrue(new RunCommand(() -> mArmPrototype.moveArm(0.4), mArmPrototype));
 
   }
 
