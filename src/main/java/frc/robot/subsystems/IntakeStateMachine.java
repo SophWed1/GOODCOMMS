@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;//TODO the intake will use: ~4x motors (Talon FX); 1x pneumatic (similar to the Simba intake)
+//TODO: this is for the INTAKING state machine
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 

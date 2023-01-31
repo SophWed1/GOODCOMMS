@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class OuttakePrototype extends SubsystemBase {
@@ -16,13 +15,11 @@ public class OuttakePrototype extends SubsystemBase {
 
   /** Creates a new OuttakePrototype. */
   public OuttakePrototype() {
-    outtake1 = new CANSparkMax(5, MotorType.kBrushless);//TODO: adjust where necessary
-    outtake1.setInverted(false);
-    outtake1.setIdleMode(IdleMode.kBrake);
+    outtake1 = new CANSparkMax(50, MotorType.kBrushless);//TODO: adjust where necessary
+    outtake1.setInverted(true);
 
-    outtake2 = new CANSparkMax(6, MotorType.kBrushless);
-    outtake2.setInverted(true);
-    outtake1.setIdleMode(IdleMode.kBrake);
+    outtake2 = new CANSparkMax(59, MotorType.kBrushless);
+    outtake2.setInverted(false);
   }
 
   @Override

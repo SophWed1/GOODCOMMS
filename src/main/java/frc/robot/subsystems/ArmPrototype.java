@@ -15,6 +15,7 @@ public class ArmPrototype extends SubsystemBase {
   //constants
    double gearRatio = 161.62;
    double countsPerRev = 2048;
+   double offset;
 
    double countsPerTurn = gearRatio * countsPerRev;
 
@@ -31,18 +32,24 @@ public class ArmPrototype extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void showPosition(){
-    SmartDashboard.putNumber("Arm position: ", arm.getSelectedSensorPosition()/10000);
+  public double encoderReset(){
+    offset = arm.getSelectedSensorPosition();
+    return offset;
+  }
 
+  public void getEncoderPosition(){
+    SmartDashboard.putNumber("Arm position: ", arm.getSelectedSensorPosition() / 10000);
   }
 
   public void moveToPosition(double position, double speed){
     arm.set(TalonFXControlMode.Position, position * 10000);
     arm.set(TalonFXControlMode.PercentOutput, speed);
 
+    
     if (arm.getSelectedSensorPosition() > 8.050 * 10000){
       stopArm();
     }
+    
   }
 
   public void stopArm(){

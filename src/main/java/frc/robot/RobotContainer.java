@@ -32,6 +32,7 @@ public class RobotContainer {
   //LEDCOMM mLedcomm = new LEDCOMM();//TODO uncomment these when necessary
   //IntakeStateMachine mStateMachine = new IntakeStateMachine();
   //PrototypeTesting mPrototypeTesting = new PrototypeTesting();
+  OuttakePrototype mOuttakePrototype = new OuttakePrototype();
 
   //OuttakePrototype mOuttakePrototype = new OuttakePrototype();
   ArmPrototype mArmPrototype = new ArmPrototype();
@@ -88,17 +89,15 @@ public class RobotContainer {
     m_driverController.x().onFalse(new RunCommand(() -> mPrototypeTesting.stopFlipper(), mPrototypeTesting));
      */
 
-    //m_driverController.a().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.2), mOuttakePrototype));
-    //m_driverController.b().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.4), mOuttakePrototype));
-    //m_driverController.x().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.6), mOuttakePrototype));
-    //m_driverController.y().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(0.8), mOuttakePrototype));
+    m_driverController.a().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(1), mOuttakePrototype));
+    m_driverController.a().onFalse(new RunCommand(() -> mOuttakePrototype.stopOuttake(), mOuttakePrototype));
+    m_driverController.b().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeIn(1), mOuttakePrototype));
+    m_driverController.b().onFalse(new RunCommand(() -> mOuttakePrototype.stopOuttake(), mOuttakePrototype));
 
-    //m_driverController.rightBumper().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeOut(1), mOuttakePrototype));
+    //mArmPrototype.setDefaultCommand(new RunCommand(() -> mArmPrototype.getEncoderPosition(), mArmPrototype));
 
-    mArmPrototype.setDefaultCommand(new RunCommand(() -> mArmPrototype.showPosition(), mArmPrototype));
-
-    m_driverController.a().onTrue(new RunCommand(() -> mArmPrototype.moveToPosition(-0.160, 0.3), mArmPrototype));
-    m_driverController.b().onTrue(new RunCommand(() -> mArmPrototype.moveToPosition(7.050, 0.3), mArmPrototype));
+    m_driverController.x().onTrue(new RunCommand(() -> mArmPrototype.moveToPosition(-0.160, 0.3), mArmPrototype));
+    //m_driverController.b().onTrue(new RunCommand(() -> mArmPrototype.moveToPosition(7.050, 0.3), mArmPrototype));
 
   }
 
