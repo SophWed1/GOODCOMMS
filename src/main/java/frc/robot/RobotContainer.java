@@ -94,7 +94,7 @@ public class RobotContainer {
     m_driverController.b().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeIn(1), mOuttakePrototype));
     m_driverController.b().onFalse(new RunCommand(() -> mOuttakePrototype.stopOuttake(), mOuttakePrototype));
 
-    //mArmPrototype.setDefaultCommand(new RunCommand(() -> mArmPrototype.getEncoderPosition(), mArmPrototype));
+    mArmPrototype.setDefaultCommand(new RunCommand(() -> mArmPrototype.getEncoderPosition(), mArmPrototype));
 
     m_driverController.x().onTrue(new RunCommand(() -> mArmPrototype.moveToPosition(-0.160, 0.3), mArmPrototype));
     //m_driverController.b().onTrue(new RunCommand(() -> mArmPrototype.moveToPosition(7.050, 0.3), mArmPrototype));
