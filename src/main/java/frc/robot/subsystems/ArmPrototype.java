@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import javax.swing.text.Position;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -43,13 +45,17 @@ public class ArmPrototype extends SubsystemBase {
 
   public void moveToPosition(double position, double speed){
     arm.set(TalonFXControlMode.Position, position * 10000);
-    arm.set(TalonFXControlMode.PercentOutput, speed);
+    //arm.set(TalonFXControlMode.PercentOutput, speed);
 
     
     if (arm.getSelectedSensorPosition() > 8.050 * 10000){
       stopArm();
     }
     
+  }
+
+  public void moveArm(double speed){
+    arm.set(TalonFXControlMode.PercentOutput, speed);
   }
 
   public void stopArm(){

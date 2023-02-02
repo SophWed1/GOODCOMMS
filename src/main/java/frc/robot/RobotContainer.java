@@ -9,6 +9,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeStateMachine;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -94,9 +95,11 @@ public class RobotContainer {
     m_driverController.b().onTrue(new RunCommand(() -> mOuttakePrototype.OuttakeIn(1), mOuttakePrototype));
     m_driverController.b().onFalse(new RunCommand(() -> mOuttakePrototype.stopOuttake(), mOuttakePrototype));
 
-    mArmPrototype.setDefaultCommand(new RunCommand(() -> mArmPrototype.getEncoderPosition(), mArmPrototype));
+    mArmPrototype.setDefaultCommand(new RunCommand(() -> mArmPrototype.moveArm(m_operatorController.getLeftX() * 0.4), mArmPrototype));
 
     m_driverController.x().onTrue(new RunCommand(() -> mArmPrototype.moveToPosition(-0.160, 0.3), mArmPrototype));
+
+  
     //m_driverController.b().onTrue(new RunCommand(() -> mArmPrototype.moveToPosition(7.050, 0.3), mArmPrototype));
 
   }
